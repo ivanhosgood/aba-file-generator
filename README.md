@@ -18,7 +18,7 @@ Generates an aba file for bulk banking transactions with Australian banks.
 ## Installation
 Copy the files where needed or install via composer:
 ```bash
-composer require simonblee/aba-file-generator
+composer require ivanhosgood/aba-file-generator
 ```
 
 ## Usage
