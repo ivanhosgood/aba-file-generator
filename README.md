@@ -1,5 +1,14 @@
 # ABA File Generator
 
+## Notes
+The ABA format provided @ simonblee/aba-file-generator does not match specification as described at:
+https://www.commbank.com.au/content/dam/robohelp/PDFS/commbiz_direct_credit_debit.pdf
+https://www.cemtexaba.com/aba-format/cemtex-aba-file-format-details
+https://www.nab.com.au/content/dam/nabconnectcontent/file-formats/NAB%20Connect%20Consolidated%20File%20Format%20Specification_V0.05.pdf
+
+
+Descriptive record does not contain BSB or account #. These fields (2-18) are to be left blank
+
 ## Overview
 Generates an aba file for bulk banking transactions with Australian banks.
 

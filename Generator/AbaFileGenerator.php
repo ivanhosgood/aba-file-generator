@@ -100,8 +100,9 @@ class AbaFileGenerator
 
     /**
      * Set the processing date.
-     * 
+     *
      * @param int|string|DateTime $date
+     * @return AbaFileGenerator
      */
     public function setProcessingDate($date)
     {
@@ -112,6 +113,8 @@ class AbaFileGenerator
 
     /**
      * @param array|TransactionInterface
+     * @return string
+     * @throws Exception
      */
     public function generate($transactions)
     {
@@ -147,14 +150,8 @@ class AbaFileGenerator
         // Record Type
         $line = self::DESCRIPTIVE_TYPE;
 
-        // BSB
-        $line .= $this->bsb;
-
-        // Account Number
-        $line .= str_pad($this->accountNumber, 9, ' ', STR_PAD_LEFT);
-
-        // Reserved - must be a single blank space
-        $line .= ' ';
+        // Intentionally left blank
+        $line .= str_repeat(' ', 17);
 
         // Sequence Number
         $line .= '01';
@@ -269,14 +266,6 @@ class AbaFileGenerator
      */
     private function validateDescriptiveRecord()
     {
-        if (! preg_match($this->bsbRegex, $this->bsb)) {
-            throw new Exception('Descriptive record bsb is invalid. Required format is 000-000.');
-        }
-
-        if (! preg_match('/^[\d]{0,9}$/', $this->accountNumber)) {
-            throw new Exception('Descriptive record account number is invalid. Must be up to 9 digits only.');
-        }
-
         if (! preg_match('/^[A-Z]{3}$/', $this->bankName)) {
             throw new Exception('Descriptive record bank name is invalid. Must be capital letter abbreviation of length 3.');
         }

@@ -50,8 +50,8 @@ class AbaFileGeneratorTest extends PHPUnit_Framework_TestCase
         $ad = $this->getAccountDetails();
 
         $this->assertEquals(120, strlen($record));
-        $this->assertEquals($ad['bsb'], substr($record, 1, 7));
-        $this->assertEquals($ad['accountNumber'], substr($record, 8, 9));
+        $this->assertEquals(str_repeat(' ', 17), substr($record, 1, 17));
+        $this->assertEquals('01', substr($record, 18, 2));
         $this->assertEquals($ad['bankName'], substr($record, 20, 3));
         $this->assertStringStartsWith($ad['userName'], substr($record, 30, 26));
         $this->assertEquals($ad['directEntryUserId'], substr($record, 56, 6));
@@ -138,13 +138,19 @@ class AbaFileGeneratorTest extends PHPUnit_Framework_TestCase
         return $abaLines;
     }
 
+    /**
+     * @return string
+     * @throws \Exception
+     */
     private function generate()
     {
         $ad = $this->getAccountDetails();
         $generator = new AbaFileGenerator($ad['bsb'], $ad['accountNumber'], $ad['bankName'], $ad['userName'], $ad['remitterName'], $ad['directEntryUserId'], $ad['description']);
         $fixtures = new TransactionFixtures();
 
-        return $generator->generate($fixtures->getTransactions());
+        $transactions = $fixtures->getTransactions();
+
+        return $generator->generate($transactions);
     }
 
     private function getAccountDetails()

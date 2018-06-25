@@ -20,7 +20,7 @@
 
     <php>
         <ini name="memory_limit" value="256M"/>
-        <ini name="date.timezone" value="Australia/Canberra"/>
+        <ini name="date.timezone" value="Australia/Melbourne"/>
     </php>
 
 </phpunit>
